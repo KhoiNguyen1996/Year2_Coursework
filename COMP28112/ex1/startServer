@@ -1,0 +1,2 @@
+#!/bin/sh
+/opt/info/courses/COMP28112/ex1/servletrunner -d /home/mbaxamn2/COMP28112/ex1

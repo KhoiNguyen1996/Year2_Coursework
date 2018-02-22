@@ -1,0 +1,6 @@
+// To compile
+cogl filename.c
+
+// To run
+./filename
+

@@ -1,0 +1,75 @@
+#!/bin/sh
+#
+# Copyright (c) 1997 Sun Microsystems, Inc. All Rights Reserved.
+#
+# Permission to use, copy, modify, and distribute this software
+# and its documentation for NON-COMMERCIAL purposes and without
+# fee is hereby granted provided that this copyright notice
+# appears in all copies. Please refer to the file "copyright.html"
+# for further important copyright and licensing information.
+#
+# SUN MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE SUITABILITY OF
+# THE SOFTWARE, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+# TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE, OR NON-INFRINGEMENT. SUN SHALL NOT BE LIABLE FOR
+# ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING OR
+# DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
+#
+
+#
+# SRUN - ServletRunner for testing servlets.
+#
+
+# Look for specified file in executable search path and echo path name of
+# file if found. 
+
+search_path() {
+    for d in `echo $PATH | tr ':' ' '`
+    do
+	if [ -f $d/$1 -a -x $d/$1 ]
+	then
+	    echo $d
+	    exit
+	fi
+    done
+}
+
+# Print fatal error message and die.
+
+error() {
+    echo "ServletRunner: $1" 2>&1
+    exit 1
+}
+
+# If JAVA_HOME not specified then determine default value based on location
+# of Java runtime if found in search path. Otherwise set to default location
+# of JDK 1.1 installation.
+
+if [ -z "$JAVA_HOME" ]
+then
+    d=`search_path java`
+    if [ -n "$d" ]
+    then
+	JAVA_HOME=`cd $d/.. >/dev/null 2>&1 && pwd`
+    fi
+    if [ -z "$JAVA_HOME" ]
+    then
+	JAVA_HOME=/usr/java/default
+    fi
+fi
+
+# If the Java runtime still cannot be found then JAVA_HOME must be set
+# manually.
+
+if [ ! -x "$JAVA_HOME/bin/java" ]
+then
+    error "Cannot find the Java runtime. Please set JAVA_HOME."
+fi
+
+CLASSPATH=/opt/info/courses/COMP28112/ex1/jsdk.jar:$CLASSPATH
+export CLASSPATH
+
+# Start server and pass any arguments specified on command line.
+
+cd $JSDK_HOME
+$JAVA_HOME/bin/java sun.servlet.http.HttpServer $*

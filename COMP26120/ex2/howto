@@ -1,0 +1,101 @@
+	How to write, compile, debug and run C programs on Linux
+	========================================================
+
+There are some prompts below, but you should add anything else you think
+will be useful.
+
+Useful sources of information
+=============================
+
+-o file
+           Place output in file a file.  This applies to whatever sort of output
+           is being produced, whether it be an executable file, an object
+           file, an assembler file or preprocessed C code.
+
+           If -o is not specified, the default is to put an executable file in
+           a.out, the object file for source.suffix in source.o, its assembler
+           file in source.s, a precompiled header file in source.suffix.gch,
+           and all preprocessed C source on standard output.
+
+-std=
+           Determine the language standard.   This option is currently only
+           supported when compiling C or C++. In this case, we used c99.
+
+-Wall
+           Turn on warning flags.
+
+
+
+Writing C programs
+==================
+Include the library required names at the top.
+
+// main
+int main(int argc, char **argv)
+{
+  ... code
+}
+
+Compiling C programs
+====================
+make filename // No .c
+makefile is a text file that contains the parameters for compiling c file.
+gcc -g -std=c99 -Wall -lm part2.c -o part2
+
+
+make: `filename' is up to date. Is when the compiled file is up to date with the 
+source file.
+
+Error when removing #include <stdio.h> 
+HelloWorld.c: In function ‘main’:
+HelloWorld.c:5:3: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+   printf("Hello world!\n");
+   ^
+HelloWorld.c:5:3: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+
+
+
+Linking C programs
+==================
+#include <library> // include lib at the top of the program.
+
+Running C programs
+==================
+./filename
+
+// Creating library
+ar rc libmylib.z object1.o object2.o
+ranlib libmylib.a
+
+// Crearing library
+ranlib libmylib.a
+
+// 
+Comparing output from C and Java programs
+=========================================
+The output from both programs are all the same, except for the mean salary value
+. For Java: 24626.666666666668, For C: 24626.666667. The difference is in the 
+size of the variable.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
