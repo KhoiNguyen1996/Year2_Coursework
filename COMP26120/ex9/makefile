@@ -1,5 +1,5 @@
 CFLAGS=-g -Wall -std=c99
-CC=gcc
+CC=gcc -lm
 
 # "make tree" or "make hash" to compile your code
 

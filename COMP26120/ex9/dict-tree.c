@@ -18,6 +18,12 @@ struct node
 struct table
 {
   tree_ptr head; // points to the head of the tree
+  int maxDepth;
+  int noOfNode;
+  int noOfCompare_insert;
+  int noOfCompare_find;
+  int noOfInsert;
+  int noOfFind;
   // add anything else that you need
 };
 
@@ -26,6 +32,7 @@ Table initialize_table(/*ignore parameter*/)
 {
   Table newTable = (Table) malloc(sizeof(Table));
   newTable->head = NULL;
+  newTable->maxDepth = 0;
   return newTable;
 }
 
@@ -100,10 +107,10 @@ Boolean find(Key_Type findKey, Table findTable)
 
     // If the head reach NULL then the value doesn't exist.
     if (headNode == NULL)
-      return 0;
+      return FALSE;
   }
   // If the value exists.
-  return 1;
+  return TRUE;
 }
 
 // Print the table using preorder traversal using recursion.
@@ -134,6 +141,12 @@ void print_table(Table printTable)
   }
 }
 
+/*
+you might calculate the height and/or the average number of string compares per
+call to insert or find, so you can compare them with the theoretical minimum.
+You should add fields to the data structures in the code you are given to
+collect the information you need.
+*/
 void print_stats(Table statsTable)
 {
 }
