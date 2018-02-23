@@ -24,7 +24,7 @@ struct table
 
 Table initialize_table(Table_size dimension)
 {
-  
+  int i = 69;
 }
 
 Table insert (Key_Type, Table)
