@@ -1,0 +1,112 @@
+Chosen Problem:
+B. Max and Min of a List
+
+Input: An array of integers A, of length n.
+Output: The maximum and the minimum elements of the list.
+--------------------------------------------------------------------------------
+Algorithm 1:
+
+a)
+minMax(list)
+{
+  largest := first element of list
+  smallest := first element of list
+  for each i in list
+    if (i > largest)
+      largest := i
+    else if (i < smallest)
+      smallest := i
+  end for
+  output: largest and smallest
+}
+
+b) To find the largest or smallest number in a (finite) list it's required to 
+check every element once. As we check each element we just need to see if it's 
+larger than the largest number (if so, we update the largest value to the element
+value) and to check if it's smaller than the smallest number (if so, we update 
+the value of the smallest number). This is correct since we assigned the value 
+of the first element in a list to largest and smallest variable.
+
+c) For an integer array of length n, the complexity (worst case) for this 
+algorithm will be 2n. This is because for an input of n size, for each iteration
+in the for loop there will be 2 comparison operation (dominant operation). 
+The loop will have n number of iteration, thus complexity = 2 * n = 2n. Worst 
+case complexity can be shown by an input list, where all elements are the same.
+
+-------------------------------------------------------------------------------- 
+Algorithm 2:
+
+a)
+minMax(list)
+{
+  smallestList := empty
+  largestList := empty
+  largest := first element of list
+  smallest := first element of list
+
+  if (list length is even)
+    for i = 1 to n, i = i + 2
+      if (list[i] >= list[i - 1])
+        add list[i] to largestList;
+        add list[i - 1] to smallestList;
+      else
+        add list[i] to smallestList;
+        add list[i - 1] to largestList;
+    end for
+  else 
+    for i = 0 to n - 1, i = i + 2
+      if (list[i] >= list[i + 1])
+        add list[i] to largestList;
+        add list[i + 1] to smallestList;
+      else
+        add list[i] to smallestList;
+        add list[i + 1] to largestList;
+    end for
+
+  for each i in largestList
+    if (i > largest)
+      largest := i
+  end for
+
+  for each i in smallestList
+    if (i < smallest)
+      smallest := i
+  end for
+
+  output: largest and smallest
+}
+
+b) For this algorithm, I pair up the index i and i + 1 in the list and find out 
+the maximum and minimum of each pair by using the first for loop line 84 to 101. 
+Then put the maximum of each pair into the largestList and the minimum of each 
+pair to minimum (this also work for list with odd number of element). Thus, after 
+the first for loop, it's guaranteed that the smallest and largest element will be
+in the largestList and smallestList respectively. The last 2 for loops will 
+iterate through all the input list element and return the largest and smallest 
+value when the loops ended.
+
+c) The complexity will be 3n/2 + 3. This is because there are 3 for loops in the 
+algorithm, each for loop will have a complexity of n/2 since we only take in 
+account of comparison operation. Therefore, since the first loop have iteration 
+of i = i + 2 thus for the input list of length n, there will only be n/2 
+iteration. For the second and third loop, they both have length n/2 since the
+smallestList and largestList array each have n/2 element (or n/2 + 1 elements in 
+1 of the array if the input list have odd length) hence there will be n/2 
+iteration in each loop. Therefore the worst case complexity will be 3n/2 + 3 if 
+n is odd. + 3 because line 47 comparison operation, extra iteration in the first
+loop and 1 extra iteration in either the 2nd or 3rd loop.
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+    
