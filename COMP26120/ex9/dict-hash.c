@@ -20,22 +20,41 @@ struct table
   cell *cells;
   Table_size table_size; // cell cells [table_size];
   Table_size num_entries; // number of cells in_use
+  int totalCollision;
   // add anything else that you need
 };
 
 // Function to initialise values in the table.
 Table initialize_table(Table_size dimension)
 {
-  Table newTable = malloc(sizeof(Table));
+  Table newTable = (Table) malloc(sizeof(Table));
   newTable->num_entries = 0;
   newTable->table_size = dimension;
-  newTable->cells = (cell*) malloc(sizeof(cell) * dimension);
+  newTable->cells = malloc(sizeof(cell) * dimension);
+  newTable->totalCollision = 0;
 
   return newTable;
 }
 
-// Function to calculate the hash code of a key of type string.
-static int polynomial_hash(const char* key)
+//=============================================================================
+// Functions to calculate the hash code of a key of type string.
+int summation_hash(const char* key)
+{
+  int k = strlen(key);
+  char charArray[k];
+  strncpy(charArray, key, k);
+
+  int answer = 0;
+
+  for (int i = 0; i < k; i++)
+  {
+    answer += charArray[i];
+  }
+
+  return answer;
+}
+
+int polynomial_hash(const char* key)
 {
   int k = strlen(key);
   char charArray[k];
@@ -48,19 +67,39 @@ static int polynomial_hash(const char* key)
   {
     answer += (int) charArray[i] * pow(a,k-i-1);
   }
+
   return answer;
 }
 
-static int compression(int hashKey, Table_size maxRange)
+// Non zero hash function with formula f(k) = q - (k mod q)
+// q = 7.
+int nonZero_hash(const char* key)
 {
-  return (int) abs(hashKey * 9 + 3) % maxRange;
+  return 7 - (key % 7);
 }
 
-static int quadratic_probing(int i, int j, int N)
+// Compression function that map the key to range 0 to N.
+int compression(int hashKey, Table_size maxRange)
+{
+  int a = rand() % maxRange + 1;
+  int b = rand() % maxRange + 1;
+  return (int) abs(a * hashKey + b) % maxRange;
+}
+
+//=============================================================================
+// Probing modes.
+int quadratic_probing(int i, int j, int N)
 {
   return (i + j * j) % N;
 }
 
+int linear_probing(int i, int j, int N)
+{
+  return (i + j * j) % N;
+}
+
+//=============================================================================
+/*
 Table insert(Key_Type insertKey, Table insertTable)
 {
   int hashCode = polynomial_hash(insertKey);
@@ -80,8 +119,41 @@ Table insert(Key_Type insertKey, Table insertTable)
     }
   }
   return insertTable;
+} */
+
+Table insert(Key_Type insertKey, Table insertTable)
+{
+  switch(mode)
+  {
+    /* Used only summation hash function and use linear probing.
+    */
+    case 1:
+      insertTable = insertValue()
+      break;
+
+    /* Used only summation hash function and use linear probing.
+    */
+    case 2:
+      break;
+
+    /* Used only summation hash function and use linear probing.
+    */
+    case 3:
+      break;
+
+    /* Used only summation hash function and use linear probing.
+    */
+    case 4:
+      break;
+
+    /* Used only summation hash function and use linear probing.
+    */
+    default:
+      break;
+  }
 }
 
+/*
 // Find a key in the table, if in use then true, else false.
 Boolean find(Key_Type findKey, Table findTable)
 {
@@ -95,18 +167,27 @@ Boolean find(Key_Type findKey, Table findTable)
   }
   return 0;
 }
+*/
 
+// Find a key in the table, if in use then true, else false.
+Boolean find(Key_Type findKey, Table findTable)
+{
+}
+
+// Find all the in use cells in the table.
 void print_table(Table printTable)
 {
   for (int i = 0; i < printTable->table_size; i++)
   {
-    if (printTable->cells[i].element != NULL && printTable->cells[i].state == in_use)
+    if (printTable->cells[i].element != NULL)
     {
-      printf("Hash ID: %d, Value: %s\n", i, printTable->cells[i].element);
+      if (printTable->cells[i].state == in_use)
+        printf("Hash ID: %d, Value: %s\n", i ,printTable->cells[i].element);
     }
   }
 }
 
 void print_stats(Table statsTable)
 {
+
 }
