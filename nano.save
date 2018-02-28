@@ -1,0 +1,8 @@
+struct table
+{
+  cell *cells;
+  Table_size table_size; // cell cells [table_size];
+  Table_size num_entries; // number of cells in_use
+  int totalCollision;
+  // add anything else that you need
+};

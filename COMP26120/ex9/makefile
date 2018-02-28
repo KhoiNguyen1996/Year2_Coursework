@@ -6,7 +6,7 @@ CC=gcc
 tree: speller.o dict-tree.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
-hash: speller.o dict-hash.o -lm
+hash: speller.o dict-hash.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
 tidy:
