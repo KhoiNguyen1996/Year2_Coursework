@@ -1,12 +1,12 @@
 CFLAGS=-g -Wall -std=c99
-CC=gcc -lm
+CC=gcc
 
 # "make tree" or "make hash" to compile your code
 
 tree: speller.o dict-tree.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
-hash: speller.o dict-hash.o
+hash: speller.o dict-hash.o -lm
 	$(CC) $(LDFLAGS) -o $@ $^
 
 tidy:

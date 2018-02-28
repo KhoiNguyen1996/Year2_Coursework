@@ -120,6 +120,9 @@ Table insert(Key_Type insertKey, Table insertTable)
   return insertTable;
 }
 
+// This function has a time complexity of O(N) for non self-balance tree.
+// It's has a time complexity of O(log N) for self-balance tree.
+// N is the total number of node currently in the table.
 Boolean find(Key_Type findKey, Table findTable)
 {
   // Increase no of method call.
