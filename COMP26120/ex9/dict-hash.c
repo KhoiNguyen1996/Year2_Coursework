@@ -406,10 +406,10 @@ void print_table(Table printTable)
 // Function to print out any stat related to the table.
 void print_stats(Table statsTable)
 {
-  printf("Total number of collisions: %g\n", statsTable->totalCollision);
-  printf("Total number of inserts with collisions: %g\n", statsTable->totalInsert);
+  printf("Total number of collisions: %.0lf\n", statsTable->totalCollision);
+  printf("Total number of inserts with collisions: %.0lf\n", statsTable->totalInsert);
   double collisionsRate = statsTable->totalCollision / statsTable->totalInsert;
-  printf("Collisions per insert: %lf\n", collisionsRate);
+  printf("Collisions per insert: %lf\n\n", collisionsRate);
 
   printf("Total number of entries: %d\n", statsTable->num_entries);
   printf("Current bucket load: %f\n", get_ratio(statsTable));
